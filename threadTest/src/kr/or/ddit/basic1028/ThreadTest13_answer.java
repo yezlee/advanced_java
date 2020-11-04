@@ -34,7 +34,6 @@ public class ThreadTest13_answer {
 		gs.start();
 		
 		
-		
 		for(Horse_a h : horses) {
 			try {
 				h.join();
