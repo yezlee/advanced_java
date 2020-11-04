@@ -113,21 +113,16 @@ public class PhoneBookTest {
 
 	boolean notice = false;
 	
-	
 	public PhoneBookTest() {
 		loadnumber();
 	}
-	
 	
 	public static void main(String[] args) {
 		new PhoneBookTest().start(); //new를 붙여줘서 생성자를 만드는걸 해버리면 static안붙여줘도 됨.
 		
 	}
 
-
 	private int start() {
-		
-		
 		
 		System.out.println("------------------");
 		System.out.println("다음 메뉴를 선택하세요.");
@@ -162,7 +157,6 @@ public class PhoneBookTest {
 			
 		}
 		return input;
-		
 	}
 	
   	
@@ -172,10 +166,7 @@ public class PhoneBookTest {
 		if(notice = true) {
 			ph_save(); 
 		}
-		
-		
 		System.exit(0);
-		
 	}
 
 
@@ -210,7 +201,6 @@ public class PhoneBookTest {
 		} catch (IOException e) {
 			// TODO: handle exception
 		}
-
 	}
 
 
