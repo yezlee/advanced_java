@@ -111,7 +111,8 @@ public class PhoneBookTest {
 	HashMap<String, Phone> map = new HashMap<>(); 
 	static Scanner scan = new Scanner(System.in);	
 
-	boolean notice = false;
+	//데이터가 변경되었는지 여부를 나타내는 변수선언
+	boolean notice; //boolean은 기본형이 false라서 초기화 안해줘도됨
 	
 	public PhoneBookTest() {
 		loadnumber();
@@ -140,19 +141,20 @@ public class PhoneBookTest {
 		scan.nextLine();
 		
 		switch(input) {
-		case 1: //등록
+		case 1: 			//등록
 			ph_insert();
-		case 2:
+		case 2: 			//수정
 			ph_modify();
-		case 3:
+		case 3: 			//삭제
 			ph_delete();
-		case 4:
+		case 4: 			//검색
 			ph_search();
-		case 5:
+		case 5: 			//목록
 			ph_list();
-		case 6:
+		case 6: 			//저장
 			ph_save();
-		case 0:
+		case 0: 			
+			//종료
 			ph_exit();
 			
 		}
@@ -166,10 +168,11 @@ public class PhoneBookTest {
 		if(notice = true) {
 			ph_save(); 
 		}
+		System.out.println("변경된 내용을 저장합니다.");
 		System.exit(0);
 	}
 
-
+	//파일에 저장된 전화번호 정보를 읽어오는 메소드
 	private void loadnumber() {
 		// 입력용 스트림 객체 생성
 
@@ -203,7 +206,7 @@ public class PhoneBookTest {
 		}
 	}
 
-
+	//전화번호를 정보를 파일에 저장하는 메소드
 	private void ph_save() {
 		
 		try {
@@ -213,6 +216,11 @@ public class PhoneBookTest {
 			ObjectOutputStream oos = new ObjectOutputStream(bout);
 			
 			System.out.println("전화번호 저장 시작");
+			
+//			oos.writeObject(map); // 이렇게 맵을 (as객체) 통째로 파일에 저장 - 선생님답
+			
+			
+			
 			for(String key : map.keySet()) { //맵에 있는 키(name)를 가져와서 그걸 key에 넣어줌 
 				oos.writeObject(map.get(key)); //key를 가져와서 writeObject해줌
 			}
@@ -323,15 +331,9 @@ public class PhoneBookTest {
 
 }
 
-
 class Phone implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4845152742960394503L;
-
-
 
 	//생성자. 위에서 Phone info = new Phone(name, phonenum, addr); 여기다 넣기위해서
 	//그리고 이거 만드는 방법(ListSortTest2 에서 했음)
