@@ -49,7 +49,10 @@ import java.util.Scanner;
 			
 			
 			while(rs.next()) {
-				if(rs.getInt(1)>input) {
+				if(rs.getInt(1)>input) { 
+				//이거는 좋은 방법이 아니야. 이건 모든 데이터를 한번에 다 가져와서 조건문으로 거르는건데, 데이터가 나중에 많아졌을때 백만개 있을때 그럴때 비효율적.
+				//그리고 조건거는건 자바에서 조건문으로 하는것보다, 데이터베이스에서 조건을 거는게 훨씬 효율적이야.
+				
 					System.out.println("Lprod_id : " + rs.getInt("lprod_id"));
 					System.out.println("Lprod_gu : " + rs.getString("Lprod_gu"));
 					System.out.println("Lprod_nm : " + rs.getString("Lprod_nm"));
@@ -60,6 +63,7 @@ import java.util.Scanner;
 			
 		} catch (SQLException e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -96,11 +100,15 @@ public class JdbcTest02 {
 			
 			// 2. DB연결 ==> Connection객체 생성
 			conn = DriverManager.getConnection(
-					"jdbc:oracle:thin:@localhost:1521/xe", "yez", "java"	
+					"jdbc:oracle:thin:@localhost:1521/xe", "yez", "java"	 //1521은 포트번호
 					);
 			
 			//3-1. 실행할 SQL문 작성 3번은 Connection -> Statement -> ResultSet 순서대로
-			String sql = "select * from lprod where lprod_id >" + input;
+			String sql = "select * from lprod where lprod_id > " + input;
+			//근데 이런식  + input; 으로 코딩하면 외부에서 해킹당할 가능성이 있대...
+			//예를 들어서 인풋이 int input = Integer.parseInt(scan.nextLine()); 이게 아니고 String이고
+			//숫자 하나만 입력해야하는데  5 or 1=1 이렇게 해버리면 모든 데이터가 출력돼. 그럼 데이터를 다 가져갈수있는거. 해킹가능성이 높음.
+			
 			
 			//3-2. Statement 객체를 생성 ==> Connection 객체를 이용한다.
 			stmt = conn.createStatement();
@@ -111,7 +119,9 @@ public class JdbcTest02 {
 			
 			//5. 결과 처리하기
 			System.out.println("== 처리 결과 출력 ==");
-			
+			System.out.println();
+			System.out.println("실행한 SQL문 : " + sql);
+			System.out.println();
 			
 			while(rs.next()) {
 				
@@ -125,6 +135,7 @@ public class JdbcTest02 {
 			
 		} catch (SQLException e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

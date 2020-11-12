@@ -58,7 +58,7 @@ public class JdbcTest01 {
 			
 			//4. SQL문을 DB서버로 전송해서 실행하고 결과를 얻어온다.
 			//	 (지금은 실행할 SQL문이 select문이기 때문에 결과가 ResultSet객체에 저장되어 반환한다.)
-			rs = stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql); //executeQuery는 셀렉문을 실행할때, 업데이트 할때는 executeUpdate 이 명령문?메소드로.
 			
 			//5. 결과 처리하기 ==> 한 레코드씩 화면에 출력하기
 			// 			  ==> ResultSet에 저장된 데이터를 차례로 꺼내오려면 반복문과 next()메소드를 이용한다.
@@ -70,7 +70,7 @@ public class JdbcTest01 {
 			 				  이건 맨매지막까지가 그 다음에 rs.next()얘를 한번 더해
 			 				  더이상 데이터가 없으면 그때 while문을 빠져나와
 			 */
-			while(rs.next()) {
+			while(rs.next()) { //넥스트를 통해 이동한 자리에 데이터가 있을때만 아래를 실행함.
 				//포인터가 가리키는 곳의 데이터를 가져오는 방법
 				//형식1> rs.get자료형이름("컬럼명")
 				//형식2> rs.get자료형이름(컬럼번호) ==> 컬럼번호는 1부터 시작함.
