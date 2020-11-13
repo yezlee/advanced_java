@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import kr.or.ddit.util.DBUtil;
+
 /*
   MVC패턴에 대하여 조사하여 학습하기 - 실무에서 기본적으로 사용하는 패턴임.
  */
@@ -116,15 +118,18 @@ public class JdbcTest05 {
 		
 		Connection conn = null;
 		Statement stmt = null;
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null; //조건붙을땐 이게 안전함
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+/*			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			conn = DriverManager.getConnection(
 					"jdbc:oracle:thin:@localhost:1521:xe", "yez", "java"
-					);
+					);*/
+			
+			
+			conn = DBUtil.getConnection();
 			
 			//lprod_id값 구하기 => 현재의 lprod_id값 중에서 제일 큰 값보다 1 크게 한다.
 			String sql = "SELECT nvl(MAX(lprod_id),0) maxnum FROM lprod";
@@ -133,10 +138,10 @@ public class JdbcTest05 {
 			
 			int maxNum = 0;
 			//혹시 데이터가 없을수도 있으니까 if문으로 감싸서 rs.next()해줘
-			if(rs.next()) {
+			if(rs.next()) { //쿼리문결과가 하나밖에 없어서 while문 안쓰고 그냥 한번 써준거
 				maxNum = rs.getInt("maxnum"); //위에 셀렉문에서 alias준거
 			}
-			maxNum++;
+			maxNum++; //이거 번호(제일큰번호 - 순번) 넣어주려고
 			
 			
 			//입력 받은 Lprod_gu가 이미 등록된 데이터이면 다시 입력받아서 처리한다.
@@ -187,8 +192,8 @@ public class JdbcTest05 {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
 		}finally {
 			if(rs!=null) try {rs.close();}catch(SQLException e) {} //이걸 제일 먼저 닫아줘야해
 			if(stmt!=null) try {stmt.close();}catch(SQLException e) {}

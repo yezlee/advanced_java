@@ -41,6 +41,9 @@ package exercise;
 */
 public class ex1 {
 
+	int i = 0;
+	int j = 0;
+	
 	public static void main(String[] args) {
 		
 /*		
@@ -73,26 +76,15 @@ public class ex1 {
 		
 /*		// 3> 구구단 2~9단까지 가로로 출력 (for문사용)
 		
-		int i = 0;
-		int j = 0;
-		int res = 0;
+				
 		
-		for(i = 2; i <= 9; i++) {
-			System.out.print(i + " x " + "1" + " = " + i*1 + "\t");
-			
-			for(j = 1; j <= 9; j++) {
-			System.out.print(j);	
+		for(j = 1; j <= 9; j++) {
+			for(i = 2; i <= 9; i++) {
+			System.out.print(i + " x " + j + " = " + i*j + "\t");
 			}
 			System.out.println();
 		}
-*/
-		
-		
-		
-		
-		
-		
-		
+		*/
 		
 		
 		//4> 출력내용이 다음과 같이 나오게 (for문사용)
@@ -108,7 +100,7 @@ public class ex1 {
 				    **
 		*/
 		
-/*		for(int i = 1; i <= 9; i++) {
+	/*	for(int i = 1; i <= 9; i++) {
 			for(int j = 1; j <= 10; j++) {
 				if(i >= j) {
 					System.out.print("*");
@@ -127,7 +119,58 @@ public class ex1 {
 		}
 		*/
 		
+		for(int i = 2; i <= 5; i++) {           //첫번째 i포문
+			for(int j = 5; j >= 2; j--) {       //첫번째 j포문        //j가 0일때는 아예 for문 자체가 안돌아. 조건이 안맞아서
+				if(i <= j) {
+					System.out.print(" ");
+				}else {
+					System.out.print("*");
+				}
+			}
+			for(int j = 1; j <= 5; j++) {       //두번째 j포문 
+				if(i >= j) {
+					System.out.print("*");
+				}else {
+					
+					System.out.print(" ");
+				}
+			}			
+			System.out.println();
+		}
+//-----------------------------------------------------------------------						
+		for(int i = 2; i <= 5; i++) {          //두번째 i포문  
+			for(int j = 2; j <= 5; j++) {
+				if(i >= j) {
+					System.out.print(" ");
+				}else {
+					System.out.print("*");
+				}
+			}
+			for(int j = 5; j >= 1; j--) {
+				if(i <= j) {
+					System.out.print("*");
+				}else {
+					System.out.print(" ");
+				}
+			}
+			System.out.println();
+		}
 		
+		
+		
+	/*	
+	     **   
+	    ****  
+	   ****** 
+	  ********
+	  *******
+	   ***** 
+	    ***  
+	     *   */
+
+		
+		
+		/*//5번
 		
 		for(int i = 1; i <= 5; i++) {           //첫번째 i포문
 			for(int j = 5; j >= 1; j--) {       //첫번째 j포문        //j가 0일때는 아예 for문 자체가 안돌아. 조건이 안맞아서
@@ -141,6 +184,7 @@ public class ex1 {
 				if(i >= j) {
 					System.out.print("*");
 				}else {
+					
 					System.out.print(" ");
 				}
 			}			
@@ -166,7 +210,7 @@ public class ex1 {
 		}
 		
 		
-		
+		*/
 	}
 
 }
