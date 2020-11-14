@@ -193,7 +193,7 @@ public class JdbcTest06 {
 			pstmt.setString(3, mem_addr);
 			pstmt.setString(4, mem_id);
 
-			//위에 sql_insert 성공됐나 안됐나 확인 여부
+			//위에 sql_update 성공됐나 안됐나 확인 여부
 			int cnt = pstmt.executeUpdate(); //이걸 꼭 해줘야지 쿼리문이 업데이트가 되는것.
 			if(cnt>0) {
 				System.out.println("데이터 수정이 완료 되었습니다.");
