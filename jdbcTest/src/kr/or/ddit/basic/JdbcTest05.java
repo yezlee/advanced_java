@@ -1,7 +1,7 @@
 package kr.or.ddit.basic;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+//import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -190,6 +190,8 @@ public class JdbcTest05 {
 				System.out.println("DB 추가 실패!");
 			}
 			
+			scan.close();
+			pstmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 //		} catch (ClassNotFoundException e) {

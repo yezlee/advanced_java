@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-import kr.or.ddit.util.DBUtil;
 import kr.or.ddit.util.DBUtil3;
 
 public class Jdbc_board {
