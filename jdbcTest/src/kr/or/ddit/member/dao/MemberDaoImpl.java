@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.member.vo.MemberVO;
 import kr.or.ddit.util.DBUtil;
@@ -26,10 +27,6 @@ public class MemberDaoImpl implements IMemberDao{
 		return dao;
 	}
 
-	
-	
-	
-	
 	
 	
 	@Override
@@ -122,6 +119,99 @@ public class MemberDaoImpl implements IMemberDao{
 	}
 
 	@Override
+	public int update_name_Member(MemberVO memVo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int cnt = 0; // 반환값이 저장될 변수(작업성공 : 1, 실패 : 0)
+		
+		try {
+			
+			conn = DBUtil3.getConnection();
+						
+			String sql_update = "UPDATE mymember SET mem_name = ? WHERE mem_id = ? ";
+			
+			pstmt = conn.prepareStatement(sql_update);
+			
+			pstmt.setString(1, memVo.getMem_name()); //컨트롤러에 정보를 담았다가? 가져오는거니까 memVo에서 get해야지.
+			pstmt.setString(2, memVo.getMem_id());
+			
+			cnt = pstmt.executeUpdate(); //이걸 꼭 해줘야지 쿼리문이 업데이트가 되는것.
+			
+		} catch (SQLException e) {
+			cnt = 0;
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) try {pstmt.close();}catch(SQLException e) {}
+			if(conn!=null) try {conn.close();}catch(SQLException e) {}
+		}
+		
+		return cnt;
+	}
+
+	@Override
+	public int update_tel_Member(MemberVO memVo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int cnt = 0; // 반환값이 저장될 변수(작업성공 : 1, 실패 : 0)
+		
+		try {
+			
+			conn = DBUtil3.getConnection();
+						
+			String sql_update = "UPDATE mymember SET mem_tel = ? WHERE mem_id = ? ";
+			
+			pstmt = conn.prepareStatement(sql_update);
+			
+			pstmt.setString(1, memVo.getMem_tel()); //컨트롤러에 정보를 담았다가? 가져오는거니까 memVo에서 get해야지.
+			pstmt.setString(2, memVo.getMem_id());
+			
+			cnt = pstmt.executeUpdate(); //이걸 꼭 해줘야지 쿼리문이 업데이트가 되는것.
+			
+		} catch (SQLException e) {
+			cnt = 0;
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) try {pstmt.close();}catch(SQLException e) {}
+			if(conn!=null) try {conn.close();}catch(SQLException e) {}
+		}
+		
+		return cnt;
+	}
+
+	@Override
+	public int update_addr_Member(MemberVO memVo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int cnt = 0; // 반환값이 저장될 변수(작업성공 : 1, 실패 : 0)
+		
+		try {
+			
+			conn = DBUtil3.getConnection();
+						
+			String sql_update = "UPDATE mymember SET mem_addr = ? WHERE mem_id = ? ";
+			
+			pstmt = conn.prepareStatement(sql_update);
+			
+			pstmt.setString(1, memVo.getMem_addr()); //컨트롤러에 정보를 담았다가? 가져오는거니까 memVo에서 get해야지.
+			pstmt.setString(2, memVo.getMem_id());
+			
+			cnt = pstmt.executeUpdate(); //이걸 꼭 해줘야지 쿼리문이 업데이트가 되는것.
+			
+		} catch (SQLException e) {
+			cnt = 0;
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) try {pstmt.close();}catch(SQLException e) {}
+			if(conn!=null) try {conn.close();}catch(SQLException e) {}
+		}
+		
+		return cnt;
+	}
+
+	
+	
+	
+	@Override
 	public List<MemberVO> getAllMemberList() {
 		Connection conn = null;
 		Statement stmt = null;
@@ -191,6 +281,35 @@ public class MemberDaoImpl implements IMemberDao{
 		}
 		
 		return cnt;	
+	}
+
+	@Override
+	public int updateMember2(Map<String, String> paramMap) {
+		// key값 ==> 회원ID(memId), 변경할컬럼명(field), 변경할데이터(data)
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int cnt = 0;
+		try {
+			conn = DBUtil3.getConnection();
+			
+			String sql = "UPDATE mymember SET " + paramMap.get("field") + " = ? WHERE mem_id = ?";
+			//변경할컬럼명 이자리는 ''이게 들어가면 안되서 쿼리문을 끊고 자바로 겟해서 
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paramMap.get("data"));
+			pstmt.setString(2, paramMap.get("memId"));
+			
+			cnt = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			cnt = 0;
+			e.printStackTrace();
+		} finally {
+			if(pstmt!=null) try {pstmt.close();}catch(SQLException e) {}
+			if(conn!=null) try {conn.close();}catch(SQLException e) {}
+		}
+		
+		return cnt;
 	}
 	
 

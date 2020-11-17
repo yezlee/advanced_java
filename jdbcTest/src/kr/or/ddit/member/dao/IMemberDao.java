@@ -1,6 +1,7 @@
 package kr.or.ddit.member.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.member.vo.MemberVO;
 
@@ -35,6 +36,24 @@ public interface IMemberDao {
 	 * @return 수정 성공 : 1, 수정 실패 : 0
 	 */
 	public int updateMember(MemberVO memVo);
+	
+	
+	
+	/**
+	 * Map의 정보를 이용하여 회원 정보들 중 원하는 컬럼을 수정하는 메소드
+	 *  Map의 key값 : 회원ID(memId), 변경할컬럼명(field), 변경할데이터(data)
+	 *  
+	 * @param paramMap 회원ID, 변경할컬럼, 변경할데이터가 저장된 Map객체
+	 * @return 수정성공 : 1, 실패 : 0
+	 */
+	public int updateMember2(Map<String , String> paramMap);
+	
+	
+	
+	
+	public int update_name_Member(MemberVO memVo); //이름변경 추가
+	public int update_tel_Member(MemberVO memVo); //전화번호변경 추가
+	public int update_addr_Member(MemberVO memVo); //주소변경 추가
 	
 	
 	

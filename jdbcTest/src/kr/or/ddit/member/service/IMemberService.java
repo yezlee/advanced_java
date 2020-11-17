@@ -1,6 +1,7 @@
 package kr.or.ddit.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.member.vo.MemberVO;
 
@@ -32,7 +33,9 @@ public interface IMemberService {
 	 */
 	public int updateMember(MemberVO memVo);
 	
-	
+	public int update_name_Member(MemberVO memVo); //이름변경 추가
+	public int update_tel_Member(MemberVO memVo); //전화번호변경 추가
+	public int update_addr_Member(MemberVO memVo); //주소변경 추가
 	
 	/**
 	 * DB의 회원테이블의 전체 레코드를 가져와서 List에 담아서 반환하는 메소드
@@ -48,4 +51,17 @@ public interface IMemberService {
 	 * @return 검색된 회원ID 갯수
 	 */
 	public int getMemberCount(String memID);
+	
+	
+	
+	/**
+	 * Map의 정보를 이용하여 회원 정보들 중 원하는 컬럼을 수정하는 메소드
+	 *  Map의 key값 : 회원ID(memId), 변경할컬럼명(field), 변경할데이터(data)
+	 *  
+	 * @param paramMap 회원ID, 변경할컬럼, 변경할데이터가 저장된 Map객체
+	 * @return 수정성공 : 1, 실패 : 0
+	 */
+	public int updateMember2(Map<String , String> paramMap);
+	
+	
 }

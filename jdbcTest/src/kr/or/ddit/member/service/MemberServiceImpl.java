@@ -1,6 +1,7 @@
 package kr.or.ddit.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.member.dao.IMemberDao;
 import kr.or.ddit.member.dao.MemberDaoImpl;
@@ -43,7 +44,7 @@ public class MemberServiceImpl implements IMemberService {
 		// TODO Auto-generated method stub
 		return dao.updateMember(memVo);
 	}
-
+		
 	@Override
 	public List<MemberVO> getAllMemberList() {
 		// TODO Auto-generated method stub
@@ -54,6 +55,30 @@ public class MemberServiceImpl implements IMemberService {
 	public int getMemberCount(String memID) {
 		// TODO Auto-generated method stub
 		return dao.getMemberCount(memID);
+	}
+
+	@Override
+	public int update_name_Member(MemberVO memVo) {
+		// TODO Auto-generated method stub
+		return dao.update_name_Member(memVo);
+	}
+
+	@Override
+	public int update_tel_Member(MemberVO memVo) {
+		// TODO Auto-generated method stub
+		return dao.update_tel_Member(memVo);
+	}
+
+	@Override
+	public int update_addr_Member(MemberVO memVo) {
+		// TODO Auto-generated method stub
+		return dao.update_addr_Member(memVo);
+	}
+
+	@Override
+	public int updateMember2(Map<String, String> paramMap) {
+		// TODO Auto-generated method stub
+		return dao.updateMember2(paramMap);
 	}
 
 }
