@@ -38,6 +38,13 @@ public class JdbcBoardServiceImpl implements IJdbcBoardService{
 	}
 	@Override
 	public JdbcBoardVO getBoard(int boardNo) {
+		
+		//보통은 서비스에선 다오 호출하고 그런일만 할거같지만
+		//이렇게 뭔가 추가?하고 이런일은 서비스에서 추가함.(다오에서도 할수있지만 서비스에서 주로 함)
+		int cnt = setCountIncrement(boardNo); //조회수를 증가시킨다.
+		if(cnt==0) { //조회수 증가가 실패했을때, 아예 널값을 가져오게
+			return null;
+		}
 		return dao.getBoard(boardNo);
 	}
 	@Override
