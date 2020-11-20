@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/dtd-map-2.dtd">
+<sqlMap namespace="room">
+	
+	 <!-- 
+ 	 	id속성 ==> Java프로그램에서 실행할 쿼리문을 호출할 때 사용되는 이름으로
+ 	 			<sqlMap>태그의 namespqce속성값과 연결해서 사용한다.
+ 	 			(예 : lprod.insertLprod)
+ 	 				
+ 	 	parameterClass속성 ==> SQL문에 사용될 데이터가 들어있는 객체를 기술한다.
+ 	 			(보통 VO클래스, 자바의 자료형이름등이 사용된다.)
+				(VO클래스 등을 기술할 때 해당 클래스의 전체이름(패키지명까지 포함된 이름)을 기술해야한다.
+
+		
+	JdbcBoardVO에서 설정해준 컬럼명들
+	private int board_no;
+	private String board_title;
+	private String board_writer;
+	private String board_date;
+	private int board_cnt;
+	private String board_content;
+			
+				
+ 	  -->
+	
+	<!-- 입력한 방번호가 있는지 검사  -->
+	<select id ="checkRoomNum" parameterClass= "int">
+		SELECT COUNT(rm_num)
+		FROM room_management
+		WHERE rm_num = #rm_num#;
+	</select>
+	
+	<!-- 입력한 방번호에 사람이 있는지 없는지 검사  -->
+	<select id ="checkRoomAval" parameterClass= "int">
+		SELECT COUNT(guest_name)
+		FROM room_management
+		WHERE rm_num = #rm_num#;
+	</select>
+	
+	<!-- 체크인 고객 이름 업데이트 -->
+	<update id = "updateGuestName" parameterClass="RoomVo">
+		UPDATE room_management 
+			SET guest_name = #guest_name#
+		WHERE rm_num = #rm_num#;
+	</update>
+	
+ 	<!-- 체크아웃 이름에 null값 업데이트 -->
+	<update id = "updateGuestName" parameterClass="RoomVo">
+		UPDATE room_management 
+			SET guest_name = null
+		WHERE rm_num = #rm_num#;
+	</update> 
+ 	 
+ 	<!-- 전체 객실 상태 보기 --> 
+ 	<select id ="checkAllRoom" parameterClass ="int">
+ 		SELECT rm_num, rm_type, guest_name
+		FROM room_type JOIN room_management ON (room_type.#rm_code# = room_management.#rm_code#)
+		ORDER BY rm_num;
+ 	</select>
+ 	
+ 	
+ 	 
+</sqlMap>
