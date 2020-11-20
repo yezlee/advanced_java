@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/dtd-map-2.dtd">
+<sqlMap namespace="mymember">
+
+	<!-- <insert id = "insertMember" parameterClass="kr.or.ddit.member.vo.MemberVO"> 
+		 sqlMapConfig에서 memVo라고 별칭줌
+	-->
+	<insert id = "insertMember" parameterClass="memVo">
+		INSERT INTO mymember (mem_id, mem_name, mem_tel, mem_addr)
+		VALUES (#mem_id#, #mem_name#, #mem_tel#, #mem_addr#)
+	</insert>
+ 	 
+ 	 
+ 	<delete id = "deleteMember" parameterClass="string">
+ 		DELETE FROM mymember WHERE mem_id = #memId#
+ 	</delete> 
+ 	 
+ 	<update id = "updateMember" parameterClass="memVo">
+ 	 	UPDATE mymember SET 
+ 	 		mem_name = #mem_name#, mem_tel = #mem_tel#, mem_addr = #mem_addr# 
+ 	 	WHERE mem_id = #mem_id# 
+ 	</update>
+ 	 
+ 	<update id = "update_name_Member" parameterClass="memVo">
+ 	 	UPDATE mymember SET mem_name = #mem_name# WHERE mem_id = #mem_id# 
+ 	</update> 
+ 	 
+ 	<update id = "update_tel_Member" parameterClass="memVo">
+ 	 	UPDATE mymember SET mem_tel = #mem_tel# WHERE mem_id = #mem_id# 
+ 	</update> 
+ 	 
+ 	<update id = "update_addr_Member" parameterClass="memVo">
+ 	 	UPDATE mymember SET mem_addr = #mem_addr# WHERE mem_id = #mem_id# 
+ 	</update> 
+ 	 
+ 	<!-- select id = "selectAllmember" resultClass = "kr.or.ddit.member.vo.MemberVO" -->
+ 	<select id = "selectAllmember" resultClass = "memVo">
+		SELECT * FROM mymember
+ 	</select>
+ 	
+ 	<select id = "countMember" resultClass ="int" parameterClass="string">
+ 		SELECT count(*) FROM mymember WHERE mem_id = #mem_id#
+ 	</select>
+ 	 
+ 	 <!-- #이 있으면 파라미터값을 적어줘야해. (pstmt처럼 prepared statement할게 필요한건가?) 
+ 	 
+ 	 resultClass, parameterClass 들어갈수 있는게 타입형이네.  -->
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	 <!-- 
+ 	 	Map!!!!을 parameterClass로 받아서 처리할 때의 변수명은 Map의 'key값'으로 지정한다.
+ 	 	
+ 	 	파라미터로 가져온 값을 컬럼명들의 자리에서 사용할 경우에는 달러$ 기호를 사용해서 나타낸다.
+ 	 	예) $변수명$ 또는 $key값$
+ 	 	
+ 	 	$field$ 키값을 쓰는건 같은데 키값을 ""안에 쓰는게 아니고 $$안에 씀
+ 	 -->
+ 	 <update id ="updateMember2" parameterClass = "java.util.Map">
+ 	 	UPDATE mymember SET 
+		 	$field$ = #data#
+		WHERE mem_id = #memId#
+		<!--
+			원래 자바에선 이렇게 생겼었던거
+			String sql = "UPDATE mymember SET " + paramMap.get("field") + " = ? WHERE mem_id = ?";
+		-->
+ 	 </update>
+ 	 
+</sqlMap>

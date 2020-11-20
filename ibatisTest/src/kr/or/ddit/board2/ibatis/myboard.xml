@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/dtd-map-2.dtd">
+<sqlMap namespace="myboard">
+	
+	 <!-- 
+ 	 	id속성 ==> Java프로그램에서 실행할 쿼리문을 호출할 때 사용되는 이름으로
+ 	 			<sqlMap>태그의 namespqce속성값과 연결해서 사용한다.
+ 	 			(예 : lprod.insertLprod)
+ 	 				
+ 	 	parameterClass속성 ==> SQL문에 사용될 데이터가 들어있는 객체를 기술한다.
+ 	 			(보통 VO클래스, 자바의 자료형이름등이 사용된다.)
+				(VO클래스 등을 기술할 때 해당 클래스의 전체이름(패키지명까지 포함된 이름)을 기술해야한다.
+
+		
+	JdbcBoardVO에서 설정해준 컬럼명들
+	private int board_no;
+	private String board_title;
+	private String board_writer;
+	private String board_date;
+	private int board_cnt;
+	private String board_content;
+			
+				
+ 	  -->
+	
+	<insert id ="insertBoard" parameterClass ="boardVo">
+		INSERT INTO jdbc_board (BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_DATE, BOARD_CNT, BOARD_CONTENT)
+					VALUES ( board_seq.nextval, #board_title#, #board_writer#, sysdate, 0, #board_content# )
+	</insert>
+	
+ 	<delete id ="deleteBoard" parameterClass ="int">
+ 		DELETE FROM jdbc_board WHERE board_no = #board_no#
+ 	</delete> 
+ 	 
+ 	<update id ="updateBoard" parameterClass ="boardVo">
+ 		UPDATE jdbc_board 
+ 			SET board_title = #board_title#, board_date = sysdate, board_content = #board_content#
+ 		WHERE board_no = #board_no#
+ 	</update>
+ 	 
+ 	<select id ="getAllBoardList" resultClass ="boardVo">
+ 		SELECT board_no, board_title, board_writer, to_char(board_date, 'YYYY-MM-DD') board_date, board_cnt, board_content
+		FROM jdbc_board 
+		ORDER BY board_no desc
+ 	</select>
+ 	 
+ 	<select id ="selectGetboard" resultClass ="boardVo" parameterClass ="int">
+ 		SELECT board_no, board_title, board_writer, to_char(board_date, 'YYYY-MM-DD') board_date, board_cnt, board_content
+		FROM jdbc_board 
+		WHERE board_no = #board_no#
+ 	</select> 
+ 	
+ 	<select id ="getSearchBoardList" resultClass ="boardVo" parameterClass ="string">
+ 		SELECT board_no, board_title, board_writer, to_char(board_date, 'YYYY-MM-DD') board_date, board_cnt, board_content
+		FROM jdbc_board 
+		WHERE board_title like '%' || #board_title# || '%'
+		ORDER BY board_no desc
+ 	</select>
+ 	
+ 	<update id ="setCountIncrement" parameterClass ="int">
+ 		UPDATE jdbc_board 
+ 			SET board_cnt = board_cnt + 1
+ 		WHERE board_no = #board_no#
+ 	</update>
+ 	 
+ 	 
+ 	 
+ 	 
+</sqlMap>
