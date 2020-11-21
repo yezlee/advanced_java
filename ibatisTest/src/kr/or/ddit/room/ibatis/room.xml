@@ -47,7 +47,7 @@
 	</update>
 	
  	<!-- 체크아웃 이름에 null값 업데이트 -->
-	<update id = "updateGuestName" parameterClass="RoomVo">
+	<update id = "updateGuestNull" parameterClass="RoomVo">
 		UPDATE room_management 
 			SET guest_name = null
 		WHERE rm_num = #rm_num#;

@@ -85,8 +85,9 @@ public class RoomController {
 			System.out.print("이름 입력 >> ");
 			String name = scan.next();
 			
-			/*// 입력받은 객실의 투숙객 명단에 입력받은 이름을 저장한다.
-			RoomVo.getRm_num(roomNum).setGuest_name(guest_name);*/
+			// 입력받은 객실의 투숙객 명단에 입력받은 이름을 저장한다.
+			roomVo.setRm_num(roomNum);
+			roomVo.setGuest_name(name);
 			
 		}else {
 			System.out.println(roomNum + "호 객실에는 이미 손님이 있습니다.");

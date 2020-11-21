@@ -21,7 +21,7 @@ import kr.or.ddit.util.BuiltSqlMapClient;
 
 public class MemberDaoImpl implements IMemberDao{
 	private SqlMapClient smc; //iBatis용 sqlMapClient객체 변수 선언	
-	Reader rd = null;
+	Reader rd = null; //이건 이미 BuiltSqlMapClient.java안에 static변수로 넣어줬기 때문에 이제 안써도됨 
 	
 	//1번 자기자신 클래스의 참조값이 저장될걸 프라이빗으로 만들어
 	private static MemberDaoImpl dao;
@@ -141,9 +141,7 @@ public class MemberDaoImpl implements IMemberDao{
 		} catch (SQLException e) {
 			cnt = 0;
 			e.printStackTrace();
-		}finally {
 		}
-		
 		return cnt;
 	}
 

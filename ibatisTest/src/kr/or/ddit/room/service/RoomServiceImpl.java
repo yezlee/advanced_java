@@ -3,6 +3,7 @@ package kr.or.ddit.room.service;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.room.dao.IRoomDao;
 import kr.or.ddit.room.dao.RoomDaoImpl;
+import kr.or.ddit.room.vo.RoomVo;
 
 public class RoomServiceImpl implements IRoomService{
 	private IRoomDao dao; //DAO객체가 저장될 변수 선언
@@ -31,6 +32,24 @@ public class RoomServiceImpl implements IRoomService{
 
 		@Override
 		public int checkRoomAval(int roomNum) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int updateGuestName(RoomVo roomVo) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int updateGuestNull(RoomVo roomVo) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int checkAllRoom(int roomNum) {
 			// TODO Auto-generated method stub
 			return 0;
 		}
