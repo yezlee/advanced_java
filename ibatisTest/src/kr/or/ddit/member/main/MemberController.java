@@ -1,16 +1,24 @@
 package kr.or.ddit.member.main;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.print.attribute.HashAttributeSet;
 
 import kr.or.ddit.member.service.IMemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.member.vo.MemberVO;
+import kr.or.ddit.util.AES256Util;
 
 
 /*
@@ -25,7 +33,8 @@ import kr.or.ddit.member.vo.MemberVO;
 	5> '자료수정2' 메뉴를 선택하면
 	 		1. 회원이름 수정 		2.회원전화번호 수정		3.회원주소 수정 		4. 취소
 	 		메뉴를 출력하고 각 부 메뉴에 해당하는 데이터를 수정한다.
-	
+	6> 회원ID를 추가할 때는 암호화해서 추가하고, 화면에 보여줄 경우에는 복호화해서 보여준다
+	 
 	C create - insert
 	R read  
 	U update
@@ -58,11 +67,11 @@ public class MemberController {
 	}
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		new MemberController().start();
 	}
 	
-	private void start() {
+	private void start() throws Exception {
 		while (true) {
 			System.out.println("----- 작업 선택 -----");
 			System.out.println("1. 자료추가");
@@ -110,16 +119,22 @@ public class MemberController {
 	}
 	
 	//회원정보수정2 - 선생님버전
-	private void updateMember2() {
+	private void updateMember2() throws Exception {
 		System.out.println();
 		System.out.println("수정할 회원정보를 입력하세요. ");
 		System.out.print("회원ID를 입력하세요 : ");
 		String memId = sc.next();
 		
-		int count = service.getMemberCount(memId);
+		AES256Util aes256 = new AES256Util();
+		String str = aes256.encrypt(memId);
+		
+		int count = service.getMemberCount(str);
+		
 		if(count==0) { //없는 회원이면
+			
 				System.out.println(memId + "는(은) 없는 회원ID 입니다.");
 				System.out.println("수정 작업을 종료합니다.");
+				sc.nextLine(); // 버퍼 비워주기
 				return;
 		}
 		
@@ -155,7 +170,7 @@ public class MemberController {
 		//수정할 정보를 Map에 추가한다.
 		//우선 맵객체를 만들어야지
 		Map<String, String>	paramMap = new HashMap<>();
-		paramMap.put("memId", memId);		
+		paramMap.put("memId", str);		
 		paramMap.put("field", updateField);		
 		paramMap.put("data", updateData);	
 		
@@ -170,7 +185,7 @@ public class MemberController {
 	}
 
 
-	private void update2() {
+	private void update2() throws Exception {
 		
 			
 		System.out.println();
@@ -202,11 +217,14 @@ public class MemberController {
 
 	
 
-	private void modify_addr() {
+	private void modify_addr() throws Exception {
 		System.out.print("수정할 주소의 아이디를 입력하세요 : ");
 		String memId = sc.nextLine();
 	
-		int count = service.getMemberCount(memId);
+		AES256Util aes256 = new AES256Util();
+		String str = aes256.encrypt(memId);
+		
+		int count = service.getMemberCount(str);
 		
 		if (count == 0) {
 			System.out.println("없는 사용자 ID입니다");
@@ -219,7 +237,7 @@ public class MemberController {
 		// 입력된 수정할 데이터를 MemberVO객체를 생성해서 저장한다.
 		MemberVO memVo = new MemberVO();
 		
-		memVo.setMem_id(memId);
+		memVo.setMem_id(str);
 		memVo.setMem_addr(memAddr);
 		
 		// Service 객체의 데이터를 수정하는 메서드 호출하기
@@ -235,11 +253,14 @@ public class MemberController {
 		
 	}
 
-	private void modify_tel() {
+	private void modify_tel() throws Exception {
 		System.out.print("수정할 전화번호의 아이디를 입력하세요 : ");
 		String memId = sc.nextLine();
 	
-		int count = service.getMemberCount(memId);
+		AES256Util aes256 = new AES256Util();
+		String str = aes256.encrypt(memId);
+		
+		int count = service.getMemberCount(str);
 		
 		if (count == 0) {
 			System.out.println("없는 사용자 ID입니다");
@@ -253,7 +274,7 @@ public class MemberController {
 		// 입력된 수정할 데이터를 MemberVO객체를 생성해서 저장한다.
 		MemberVO memVo = new MemberVO();
 		
-		memVo.setMem_id(memId);
+		memVo.setMem_id(str);
 		memVo.setMem_tel(memTel);
 		
 		// Service 객체의 데이터를 수정하는 메서드 호출하기
@@ -269,12 +290,15 @@ public class MemberController {
 	}
 
 	
-	private void modify_name() {
+	private void modify_name() throws Exception {
 		
 		System.out.print("수정할 이름의 아이디를 입력하세요 : ");
 		String memId = sc.nextLine();
+		
+		AES256Util aes256 = new AES256Util();
+		String str = aes256.encrypt(memId);
 	
-		int count = service.getMemberCount(memId);
+		int count = service.getMemberCount(str);
 		
 		if (count == 0) {
 			System.out.println("없는 사용자 ID입니다");
@@ -288,7 +312,7 @@ public class MemberController {
 		// 입력된 수정할 데이터를 MemberVO객체를 생성해서 저장한다.
 		MemberVO memVo = new MemberVO();
 		
-		memVo.setMem_id(memId);
+		memVo.setMem_id(str);
 		memVo.setMem_name(memName);
 		
 		// Service 객체의 데이터를 수정하는 메서드 호출하기
@@ -304,9 +328,15 @@ public class MemberController {
 	}
 
 
-	private void display() {
+	private void display() throws Exception {
 	
 			List<MemberVO> memList = service.getAllMemberList();
+			AES256Util aes256 = new AES256Util();
+			
+			String mem_id = "";
+			String str = "";
+			
+			
 			
 			System.out.println("-----------------------------------");
 			System.out.println("회원ID\t회원이름\t전화번호\t\t주소");
@@ -317,10 +347,14 @@ public class MemberController {
 				
 				for(MemberVO memVo : memList) {
 					
-					System.out.print(memVo.getMem_id()+"\t");
+					mem_id = aes256.decrypt(memVo.getMem_id());
+					
+					System.out.print(mem_id+"\t");
 					System.out.print(memVo.getMem_name()+"\t");
 					System.out.print(memVo.getMem_tel()+"\t");
 					System.out.println(memVo.getMem_addr());
+					
+					
 					
 				}
 				
@@ -333,13 +367,16 @@ public class MemberController {
 		
 	}
 
-	private void update() {
+	private void update() throws Exception {
 	
 
 			System.out.print("수정할 아이디를 입력하세요 : ");
 			String memId = sc.nextLine();
-		
-			int count = service.getMemberCount(memId);
+			AES256Util aes256 = new AES256Util();
+			
+			String str = aes256.encrypt(memId);
+			
+			int count = service.getMemberCount(str);
 			
 			if (count == 0) {
 				System.out.println("없는 사용자 ID입니다");
@@ -358,7 +395,7 @@ public class MemberController {
 			// 입력된 수정할 데이터를 MemberVO객체를 생성해서 저장한다.
 			MemberVO memVo = new MemberVO();
 			
-			memVo.setMem_id(memId);
+			memVo.setMem_id(str);
 			memVo.setMem_name(memName);
 			memVo.setMem_tel(memTel);
 			memVo.setMem_addr(memAddr);
@@ -378,14 +415,16 @@ public class MemberController {
 		
 	}
 
-	private void delete() {
+	private void delete() throws Exception {
 		
 
 
 			System.out.print("삭제할 아이디를 입력하세요 : ");
 			String memId = sc.nextLine();
+			AES256Util aes256 = new AES256Util();
 			
-			int count = service.getMemberCount(memId);
+			String str = aes256.encrypt(memId);
+			int count = service.getMemberCount(str);
 			
 			
 			if (count == 0) {
@@ -393,7 +432,7 @@ public class MemberController {
 				return;
 			} 
 			
-			int cnt = service.deleteMember(memId);
+			int cnt = service.deleteMember(str);
 			
 			System.out.println();
 			if(cnt>0) {
@@ -407,23 +446,26 @@ public class MemberController {
 		
 	}
 
-	private void insert() {
+	private void insert() throws Exception {
 		
 			
-			
+			AES256Util aes256 = new AES256Util();
 			
 			String memId = "";
+			String str = "";
+			
 			while (true) {
 				System.out.print("아이디를 입력하세요 : ");
 				memId = sc.nextLine();
-
-				if (memId.equals("")) {
+				str = aes256.encrypt(memId);
+				
+				if (str.equals("")) {
 					System.out.println("빈 내용은 입력할수 없습니다.");
 					System.out.println("다시 입력하세요");
 					continue;
 				}
 
-				int count = service.getMemberCount(memId);
+				int count = service.getMemberCount(str);
 
 			
 
@@ -452,7 +494,7 @@ public class MemberController {
 			MemberVO memVo = new MemberVO();
 			
 			// 입력한 데이터를 MemberVo 객체에 저장한다.
-			memVo.setMem_id(memId);
+			memVo.setMem_id(str);
 			memVo.setMem_name(memName);
 			memVo.setMem_tel(memTel);
 			memVo.setMem_addr(memAddr);
