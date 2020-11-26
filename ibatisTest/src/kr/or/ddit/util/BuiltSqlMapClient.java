@@ -25,7 +25,7 @@ public class BuiltSqlMapClient {
 			
 			smc = SqlMapClientBuilder.buildSqlMapClient(rd);
 			
-			rd.close(); // Reader객체 닫기
+			//rd.close(); // Reader객체 닫기
 			
 			// 환경 설정 끝
 			
