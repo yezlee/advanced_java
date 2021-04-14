@@ -36,7 +36,6 @@ public class ArgsTest {
 //		test.test1(k);
 //		
 //		test.test1(300);
-		
 
 	}
 	
