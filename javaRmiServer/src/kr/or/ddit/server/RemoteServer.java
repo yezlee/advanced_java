@@ -17,7 +17,6 @@ import kr.or.ddit.vo.TestVO;
 /*
  	RMI기술을 제공하는 클래스 만들기
  		==> RMI용 인터페이스를 구현하고, UnicastRemoteObject를 상속해서 작성한다.
- 		
  */
 public class RemoteServer extends UnicastRemoteObject implements RmiTestInterface{
 
