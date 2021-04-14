@@ -27,5 +27,4 @@ public class Log4jTest {
 //		logger.log(Level.DEBUG, "이 메시지는 Level.DEBUG레벨의 메시지 입니다.");
 //		logger.log(Level.TRACE, "이 메시지는 Level.TRACE레벨의 메시지 입니다.");
 	}
-
 }
