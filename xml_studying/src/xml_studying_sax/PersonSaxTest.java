@@ -27,7 +27,6 @@ public class PersonSaxTest {
 		
 		
 		try {
-
 			// factory를 사용할 SAXParser 의 새로운 객체 생성
 			SAXParser parser = factory.newSAXParser();
 			// PeopleSaxHandler 클래스 선언
