@@ -1,7 +1,6 @@
 package kr.or.ddit.basic;
 // javaDoc 파일 만들기 예제
 
-
 /**
  * 
  * @author 홍길동
