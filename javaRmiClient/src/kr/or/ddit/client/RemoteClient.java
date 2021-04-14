@@ -23,7 +23,7 @@ public class RemoteClient {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		
-		// RMI용 객체를 서버에서 구해와서 사용하는 순서
+		// RMI용 객체를 서버에서 구해와서 사용하는 순서 
 		try {
 			//1. 서버에서 등록한 RMI용 객체를 찾기 위해 Registry객체를 생성한다.
 			//	 (서버의 IP주소와 포트번호를 지정하여 생성한다.)
