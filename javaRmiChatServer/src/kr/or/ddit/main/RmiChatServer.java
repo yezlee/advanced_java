@@ -58,5 +58,4 @@ public class RmiChatServer extends UnicastRemoteObject implements ServerChatInf 
 		}
 
 	}
-
 }
