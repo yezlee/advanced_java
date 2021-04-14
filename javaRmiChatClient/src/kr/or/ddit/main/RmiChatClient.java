@@ -56,7 +56,5 @@ public class RmiChatClient extends UnicastRemoteObject implements ClientChatInf 
 		} catch (NotBoundException e) {
 			e.printStackTrace();
 		}
-
 	}
-
 }
