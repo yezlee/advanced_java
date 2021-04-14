@@ -20,7 +20,6 @@ public class RmiChatClient extends UnicastRemoteObject implements ClientChatInf 
 	@Override
 	public void printMessage(String msg) throws RemoteException {
 		System.out.println(msg);
-
 	}
 
 	public static void main(String[] args) {
