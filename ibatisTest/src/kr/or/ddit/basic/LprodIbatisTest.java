@@ -160,8 +160,6 @@ public class LprodIbatisTest {
 			}
 			
 			
-			
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -169,7 +167,5 @@ public class LprodIbatisTest {
 		}
 		//2.
 		
-
 	}
-
 }
