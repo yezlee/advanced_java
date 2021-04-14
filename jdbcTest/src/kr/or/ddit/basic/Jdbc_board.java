@@ -197,7 +197,6 @@ public class Jdbc_board {
 			}
 			
 			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
