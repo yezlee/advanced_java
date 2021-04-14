@@ -9,7 +9,7 @@ package kr.or.ddit.basic;
  * 여기서 쓰는 내용은 매뉴얼에 들어가는 내용이라 생각하면됨
  * <p>
  * 파일명 : JavaDocTestInf.java<br>
- * 설명 : JacaDoc문서 작성을 위한 연습용 Interface<br><br>
+ * 설명 : JavaDoc문서 작성을 위한 연습용 Interface<br><br>
  * 
  * 수정이력<br>
  * ---------------------------------<br>
