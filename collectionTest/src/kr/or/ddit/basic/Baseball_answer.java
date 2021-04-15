@@ -136,14 +136,3 @@ public class Baseball_answer{
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
